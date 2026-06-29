@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import characterImg from '../assets/awank-charachter.png'
 
 export default function LoadingScreen({ onComplete }) {
   const [progress, setProgress] = useState(0)
@@ -92,27 +93,18 @@ export default function LoadingScreen({ onComplete }) {
 }
 
 function CharacterSprite() {
-  const sprite = `
-    3px 0 #161616, 4px 0 #161616,
-    2px 1px #161616, 3px 1px #ffd6a5, 4px 1px #ffd6a5, 5px 1px #161616,
-    2px 2px #161616, 3px 2px #ffd6a5, 4px 2px #161616, 5px 2px #161616,
-    1px 3px #161616, 2px 3px #2563eb, 3px 3px #2563eb, 4px 3px #2563eb, 5px 3px #2563eb, 6px 3px #161616,
-    1px 4px #161616, 2px 4px #2563eb, 3px 4px #facc15, 4px 4px #facc15, 5px 4px #2563eb, 6px 4px #161616,
-    2px 5px #161616, 3px 5px #2563eb, 4px 5px #2563eb, 5px 5px #161616,
-    2px 6px #161616, 3px 6px #161616, 4px 6px #161616, 5px 6px #161616,
-    1px 7px #161616, 2px 7px #161616, 5px 7px #161616, 6px 7px #161616
-  `
-
   return (
     <motion.div
-      animate={{ y: [0, -8, 0] }}
-      transition={{ duration: 1.2, repeat: Infinity, ease: 'steps(2)' }}
+      animate={{ y: [0, -6, 0] }}
+      transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
     >
-      <div
-        className="character-pixel"
+      <img
+        src={characterImg}
+        alt="Awank character"
+        className="h-40 w-auto object-contain"
         style={{
-          '--scale': 8,
-          '--sprite': sprite,
+          imageRendering: 'pixelated',
+          filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))',
         }}
       />
     </motion.div>

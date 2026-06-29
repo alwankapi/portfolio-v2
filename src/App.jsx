@@ -11,6 +11,7 @@ export default function App() {
   const [characterState, setCharacterState] = useState('idle')
   const [characterDirection, setCharacterDirection] = useState('right')
   const [activeFolder, setActiveFolder] = useState(null)
+  const [animationPath, setAnimationPath] = useState(null)
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false)
@@ -19,19 +20,17 @@ export default function App() {
   const handleFolderClick = useCallback((section, folderIndex) => {
     if (characterState === 'walking') return
 
-    const targetX = getFolderPosition(folderIndex)
+    const path = getAnimationPath(folderIndex)
     setActiveFolder(section)
     setCharacterDirection('right')
     setCharacterState('walking')
-
-    setTimeout(() => {
-      setCharacterX(targetX)
-    }, 50)
+    setAnimationPath(path)
 
     setTimeout(() => {
       setCharacterState('idle')
       setActiveSection(section)
-    }, 1400)
+      setAnimationPath(null)
+    }, path.duration)
   }, [characterState])
 
   const handleCloseModal = useCallback(() => {
@@ -39,14 +38,18 @@ export default function App() {
     setCharacterDirection('left')
     setCharacterState('walking')
 
-    setTimeout(() => {
-      setCharacterX(60)
-    }, 50)
+    const returnPath = {
+      keyframes: [{ x: 60, y: 0 }],
+      duration: 1200,
+    }
+    setAnimationPath(returnPath)
 
     setTimeout(() => {
+      setCharacterX(60)
       setCharacterState('idle')
       setActiveFolder(null)
-    }, 1400)
+      setAnimationPath(null)
+    }, 1200)
   }, [])
 
   return (
@@ -63,6 +66,7 @@ export default function App() {
             characterState={characterState}
             characterDirection={characterDirection}
             activeFolder={activeFolder}
+            animationPath={animationPath}
           />
 
           <AnimatePresence>
@@ -80,14 +84,83 @@ export default function App() {
 }
 
 function getFolderPosition(index) {
-  const basePositions = [120, 380, 640]
+  const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 800
+  const isMobile = screenWidth < 768
+  const characterCenterOffset = isMobile ? 52 : 64
+
+  if (isMobile) {
+    const mobileFolderCenters = [
+      screenWidth * 0.2,
+      screenWidth * 0.5,
+      screenWidth * 0.8,
+    ]
+
+    return Math.max(12, mobileFolderCenters[index - 1] - characterCenterOffset)
+  }
+
+  const folderCenters = [
+    screenWidth / 2 - 210,
+    screenWidth / 2,
+    screenWidth / 2 + 210,
+  ]
+
+  return Math.max(24, folderCenters[index - 1] - characterCenterOffset)
+}
+
+function getAnimationPath(folderIndex) {
+  const finalX = getFolderPosition(folderIndex)
   const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 800
   const isMobile = screenWidth < 768
 
-  if (isMobile) {
-    return [40, screenWidth / 2 - 32, screenWidth - 104][index - 1]
+  // About Me (folder 1): maju dikit → naik → maju lagi ke folder
+  if (folderIndex === 1) {
+    const midX = isMobile ? finalX * 0.4 : finalX * 0.5
+    return {
+      keyframes: [
+        { x: 60, y: 0 },           // start
+        { x: midX, y: 0 },         // maju dikit
+        { x: midX, y: -60 },       // naik
+        { x: finalX, y: -60 },     // maju ke folder (elevated)
+        { x: finalX, y: 0 },       // turun ke folder
+      ],
+      duration: 2400,
+      times: [0, 0.25, 0.4, 0.7, 0.85],
+    }
   }
 
-  const centerOffset = screenWidth > 900 ? 0 : (900 - screenWidth) / 2
-  return Math.max(40, basePositions[index - 1] - centerOffset)
+  // Portfolio (folder 2): maju terus → naik ke folder
+  if (folderIndex === 2) {
+    return {
+      keyframes: [
+        { x: 60, y: 0 },           // start
+        { x: finalX - 40, y: 0 },  // maju mendekati
+        { x: finalX, y: -60 },     // naik ke folder
+        { x: finalX, y: 0 },       // turun ke folder
+      ],
+      duration: 2200,
+      times: [0, 0.5, 0.75, 0.9],
+    }
+  }
+
+  // Contact Me (folder 3): maju lewat → naik → mundur ke kiri folder
+  if (folderIndex === 3) {
+    const overX = finalX + (isMobile ? 60 : 80)
+    return {
+      keyframes: [
+        { x: 60, y: 0 },           // start
+        { x: overX, y: 0 },        // maju lewat folder
+        { x: overX, y: -60 },      // naik
+        { x: finalX, y: -60 },     // mundur ke kiri (elevated)
+        { x: finalX, y: 0 },       // turun ke folder
+      ],
+      duration: 2600,
+      times: [0, 0.4, 0.55, 0.8, 0.95],
+    }
+  }
+
+  // fallback
+  return {
+    keyframes: [{ x: finalX, y: 0 }],
+    duration: 1200,
+  }
 }

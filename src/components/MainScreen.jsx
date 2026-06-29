@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import Character from './Character'
 import FolderIcon from './FolderIcon'
 
-export default function MainScreen({ onFolderClick, characterX, characterState, characterDirection, activeFolder }) {
+export default function MainScreen({ onFolderClick, characterX, characterState, characterDirection, activeFolder, animationPath }) {
   return (
     <motion.div
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-pixel-cream to-pixel-paper px-4"
@@ -81,7 +81,7 @@ export default function MainScreen({ onFolderClick, characterX, characterState, 
       <div className="absolute bottom-24 left-0 right-0 z-0 h-4 border-t-4 border-pixel-ink bg-pixel-ink/10" />
 
       {/* Character */}
-      <Character x={characterX} state={characterState} direction={characterDirection} />
+      <Character x={characterX} state={characterState} direction={characterDirection} animationPath={animationPath} />
 
       {/* Footer hint */}
       <motion.div
