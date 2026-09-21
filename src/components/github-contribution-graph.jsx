@@ -143,7 +143,16 @@ function Calendar({ data }) {
                       ? `${cell.count} contribution${cell.count > 1 ? "s" : ""} on ${cell.date}`
                       : undefined
                   }
-                  className={`aspect-square w-full rounded-[2px] cursor-pointer ${LEVELS[cell.level]}`}
+                  className={`aspect-square w-full rounded-[2px] cursor-pointer ${LEVELS[cell.level]} ${
+                    cell.level > 0 ? "contribution-cell" : ""
+                  }`}
+                  style={
+                    cell.level > 0
+                      ? // Stagger each green cell's breathing phase so the graph
+                        // never pulses all at once.
+                        { animationDelay: `${((c * 7 + r) % 12) * 180}ms` }
+                      : undefined
+                  }
                 />
               ))}
             </div>

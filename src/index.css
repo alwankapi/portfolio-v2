@@ -106,3 +106,29 @@ h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.5);
 }
+
+/* GitHub contribution graph — subtle "breathing" pulse for active (green) cells.
+   Empty/level-0 cells are not animated; only cells with level > 0 get the class. */
+@keyframes contributionBreathing {
+  0%,
+  100% {
+    opacity: 0.78;
+    filter: brightness(0.9);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.15);
+  }
+}
+
+.contribution-cell {
+  animation: contributionBreathing 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contribution-cell {
+    animation: none;
+    opacity: 1;
+    filter: none;
+  }
+}
