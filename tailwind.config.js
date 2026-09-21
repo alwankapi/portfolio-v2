@@ -1,41 +1,51 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,jsx}'],
+  darkMode: 'class',
+  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        pixel: ['"Press Start 2P"', 'monospace'],
+        sans: ['Inter', 'sans-serif'],
       },
       colors: {
-        pixel: {
-          ink: '#161616',
-          paper: '#fff8e8',
-          cream: '#fffdf5',
-          blue: '#2563eb',
-          red: '#ef4444',
-          yellow: '#facc15',
-          green: '#22c55e',
-          purple: '#7c3aed',
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
         },
       },
-      boxShadow: {
-        pixel: '6px 6px 0 #161616',
-        'pixel-sm': '3px 3px 0 #161616',
-        glow: '0 0 0 4px rgba(34,197,94,.18), 0 0 28px rgba(34,197,94,.35)',
-      },
-      keyframes: {
-        blink: {
-          '0%, 45%': { opacity: '1' },
-          '46%, 100%': { opacity: '0' },
-        },
-        scan: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(100%)' },
-        },
-      },
-      animation: {
-        blink: 'blink 1s steps(2, end) infinite',
-        scan: 'scan 8s linear infinite',
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
     },
   },
