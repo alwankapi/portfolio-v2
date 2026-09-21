@@ -14,14 +14,14 @@ export default function ContactSection({ blurFadeDelay }) {
               Get in Touch
             </h2>
             <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Want to chat? Just shoot me a dm with a direct question on{" "}
+              Want to chat? Just send me a{" "}
               <a
-                href={DATA.contact.social.X.url}
-                className="text-blue-500 hover:underline font-medium"
+                href={DATA.contact.social.Instagram.url}
+                className="text-orange-600 hover:underline dark:text-orange-400 font-medium"
                 target="_blank"
                 rel="noreferrer"
               >
-                twitter
+                dm on Instagram
               </a>{" "}
               or email and I'll respond whenever I can.
             </p>

@@ -1,163 +1,157 @@
-import { Home, Briefcase, Code, Trophy, Mail, Globe } from 'lucide-react'
 import fotoProfil from '../assets/foto-profil.png'
 
-import { GithubIcon as Github, LinkedinIcon as Linkedin, TwitterIcon as Twitter } from '../components/icons'
-import { 
-  FaReact, 
-  FaNodeJs, 
-  FaPhp, 
-  FaDocker, 
-  FaGitAlt, 
+import { GithubIcon as Github } from '../components/icons'
+import {
+  FaReact,
+  FaNodeJs,
+  FaPhp,
+  FaDocker,
+  FaGitAlt,
   FaDatabase,
   FaFire
 } from 'react-icons/fa'
-import { 
-  SiNextdotjs, 
-  SiTypescript, 
-  SiJavascript, 
-  SiLaravel, 
-  SiCodeigniter, 
-  SiTailwindcss, 
-  SiPostgresql, 
-  SiMysql, 
-  SiFramer 
+import {
+  SiNextdotjs,
+  SiJavascript,
+  SiLaravel,
+  SiCodeigniter,
+  SiTailwindcss,
+  SiMysql,
+  SiFlutter,
+  SiDart,
+  SiFigma
 } from 'react-icons/si'
 
 export const DATA = {
   name: "Awank",
+  fullName: "Alwan Kapi Muntaha",
   initials: "AW",
-  url: "https://github.com/awank",
+  url: "https://github.com/alwankapi",
   location: "Jakarta, Indonesia",
-  description: "Web Developer & Software Engineer. I love building web applications and crafting clean user experiences.",
-  summary: "At the end of 2022, I started focusing fulltime on building and scaling modern web applications. Passionate about frontend design, backend logic, and solving complex real-world problems. In the past, I've developed various systems ranging from e-commerce to management dashboards.",
+  role: "Web Developer · Program Analyst · UI/UX Designer",
+  description:
+    "Information Technology student who loves building web applications, designing clean interfaces, and solving real problems with code.",
+  /* Inline links are written as [label](url) and rendered by AboutSection. */
+  summary:
+    "I'm an Information Technology student based in Jakarta, passionate about [web development](https://github.com/alwankapi) and [UI/UX design](https://instagram.com/alwankafi_). I enjoy building practical [information systems](https://github.com/alwankapi) that solve real problems — from PHP frameworks to modern React frontends, and even mobile apps with Flutter. My goal is simple: keep learning, build real projects, and improve step by step.",
   avatarUrl: fotoProfil,
+  github: "alwankapi",
   skills: [
     { name: "React.js", icon: FaReact, color: "#61DAFB" },
-    { name: "Next.js", icon: SiNextdotjs }, // Default color
-    { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+    { name: "Next.js", icon: SiNextdotjs },
     { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
     { name: "PHP", icon: FaPhp, color: "#777BB4" },
     { name: "Laravel", icon: SiLaravel, color: "#FF2D20" },
     { name: "CodeIgniter 4", icon: SiCodeigniter, color: "#EF4223" },
     { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
     { name: "Node.js", icon: FaNodeJs, color: "#339933" },
-    { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
     { name: "MySQL", icon: SiMysql, color: "#4479A1" },
     { name: "Firebase", icon: FaFire, color: "#FFCA28" },
+    { name: "Flutter", icon: SiFlutter, color: "#02569B" },
+    { name: "Dart", icon: SiDart, color: "#0175C2" },
+    { name: "REST API", icon: FaDatabase },
     { name: "Git", icon: FaGitAlt, color: "#F05032" },
     { name: "Docker", icon: FaDocker, color: "#2496ED" },
-    { name: "REST API", icon: FaDatabase }, // Default color
-    { name: "Framer Motion", icon: SiFramer, color: "#0055FF" }
+    { name: "Figma", icon: SiFigma, color: "#F24E1E" }
   ],
   navbar: [
-    { href: "#", icon: Home, label: "Home" },
-    { href: "#work", icon: Briefcase, label: "Work" },
-    { href: "#projects", icon: Code, label: "Projects" },
-    { href: "#hackathons", icon: Trophy, label: "Hackathons" }
+    { href: "#about", label: "About" },
+    { href: "#education", label: "Education" },
+    { href: "#skills", label: "Skills" },
+    { href: "#projects", label: "Projects" },
+    { href: "#certifications", label: "Certifications" },
+    { href: "#github", label: "GitHub" }
   ],
   contact: {
-    email: "awank.dev@example.com",
+    email: "alwankapi@gmail.com",
     social: {
-      GitHub: { name: "GitHub", url: "https://github.com/awank", icon: Github },
-      LinkedIn: { name: "LinkedIn", url: "https://linkedin.com/in/awank", icon: Linkedin },
-      X: { name: "X", url: "https://twitter.com/awank", icon: Twitter },
-      Email: { name: "Email", url: "mailto:awank.dev@example.com", icon: Mail },
+      GitHub: { name: "GitHub", url: "https://github.com/alwankapi" },
+      LinkedIn: { name: "LinkedIn", url: "https://www.linkedin.com/in/alwan-kapi-muntaha-ba6619425" },
+      Instagram: { name: "Instagram", url: "https://instagram.com/alwankafi_" },
+      Email: { name: "Email", url: "mailto:alwankapi@gmail.com" }
     }
   },
-  work: [
-    {
-      company: "Tech Studio",
-      href: "#",
-      badges: [],
-      location: "Jakarta, ID",
-      title: "Full-Stack Web Developer",
-      logoUrl: "",
-      start: "Jan 2023",
-      end: "Present",
-      description: "Developed and maintained several full-stack applications using Next.js and Laravel. Integrated REST APIs, improved performance and built custom dynamic user interfaces for clients."
-    },
-    {
-      company: "Freelance",
-      href: "#",
-      badges: ["Remote"],
-      location: "Remote",
-      title: "Frontend Developer",
-      logoUrl: "",
-      start: "May 2021",
-      end: "Dec 2022",
-      description: "Built responsive frontend user interfaces and landed pages. Collaborated with designers to convert Figma designs into pixel-perfect Tailwind CSS code."
-    }
-  ],
   education: [
     {
-      school: "University of Indonesia",
-      href: "#",
-      degree: "Bachelor's Degree in Computer Science",
-      logoUrl: "",
-      start: "2018",
-      end: "2022"
+      school: "Universitas Bina Sarana Informatika (UBSI)",
+      href: "https://www.bsi.ac.id",
+      degree: "Informatics (Informatika)",
+      logoUrl: "https://bsi.today/wp-content/uploads/2021/05/logo-bsi.png",
+      start: "2023",
+      end: "Present"
     }
   ],
   projects: [
     {
-      title: "SIMKOS",
-      href: "#",
-      dates: "Jan 2024 - Mar 2024",
+      title: "SIMKOS — Sistem Informasi Manajemen Kos",
+      href: "https://github.com/alwankapi",
+      dates: "2024 - Present",
       active: true,
-      description: "Sistem Informasi Kost — Full-stack boarding house management system with booking, payment tracking, tenant management, and reporting dashboard.",
-      technologies: ["Laravel", "MySQL", "Tailwind CSS", "Chart.js"],
-      links: [
-        { type: "Website", href: "#", icon: Globe },
-        { type: "Source", href: "#", icon: Github }
-      ],
+      description:
+        "Full-stack boarding house management system built with CodeIgniter 4. Handles rooms, tenant data, payment records, and an admin dashboard using the Waterfall method.",
+      technologies: ["CodeIgniter 4", "PHP", "MySQL", "Tailwind CSS"],
+      links: [{ type: "Source", href: "https://github.com/alwankapi", icon: Github }],
       image: ""
     },
     {
-      title: "E-Commerce Dashboard",
-      href: "#",
-      dates: "Aug 2023 - Nov 2023",
+      title: "Perpustakaan Web",
+      href: "https://github.com/alwankapi/perpustakaan-web",
+      dates: "2024",
       active: true,
-      description: "Modern admin dashboard for managing products, orders, inventory, and real-time analytics with data visualization and export features.",
-      technologies: ["Next.js", "Firebase", "TypeScript", "Recharts"],
-      links: [
-        { type: "Website", href: "#", icon: Globe },
-        { type: "Source", href: "#", icon: Github }
-      ],
+      description:
+        "Library management web application built with CodeIgniter 4 — book cataloguing, borrowing records, and member management in a clean admin interface.",
+      technologies: ["CodeIgniter 4", "PHP", "MySQL", "Tailwind CSS"],
+      links: [{ type: "Source", href: "https://github.com/alwankapi/perpustakaan-web", icon: Github }],
       image: ""
     },
     {
-      title: "Pixel Portfolio",
-      href: "#",
-      dates: "Jun 2024 - Present",
+      title: "Lost & Found App",
+      href: "https://github.com/alwankapi",
+      dates: "2024",
       active: true,
-      description: "Personal portfolio with retro pixel-art theme, animated character, interactive folder navigation, and smooth transitions.",
-      technologies: ["React.js", "Framer Motion", "Tailwind CSS", "Vite"],
-      links: [
-        { type: "Source", href: "#", icon: Github }
-      ],
+      description:
+        "Flutter mobile app for reporting lost and found items, with login, Firebase Auth, Cloud Firestore, and admin verification before reports go live.",
+      technologies: ["Flutter", "Firebase Auth", "Cloud Firestore"],
+      links: [{ type: "Source", href: "https://github.com/alwankapi", icon: Github }],
+      image: ""
+    },
+    {
+      title: "Vigenesia App",
+      href: "https://github.com/alwankapi",
+      dates: "2024",
+      active: true,
+      description:
+        "Mobile application refined with a user-centered design approach — improved UI/UX, better user flows, and Firebase backend integration.",
+      technologies: ["Flutter", "Dart", "Firebase"],
+      links: [{ type: "Source", href: "https://github.com/alwankapi", icon: Github }],
       image: ""
     }
   ],
-  hackathons: [
+  /* TODO: Replace the entries below with your real certificates. */
+  certifications: [
     {
-      title: "Tech Innovation Hackathon",
-      dates: "October 2022",
-      location: "Jakarta, Indonesia",
-      description: "Built an open-source platform for local communities to track waste management. Won 1st place in the environment track.",
-      image: "",
-      links: [
-        { title: "Source", icon: Github, href: "#" }
-      ]
+      title: "IDCamp — Website Development",
+      organization: "Indosat Ooredoo Hutchison × Dicoding",
+      year: "2024",
+      description:
+        "Completed the front-end and back-end tracks, building real web projects and finishing the final assignment on modern web tooling.",
+      href: "https://github.com/alwankapi"
     },
     {
-      title: "Open Source Days",
-      dates: "July 2021",
-      location: "Remote",
-      description: "Contributed to multiple open-source repositories and developed an internal tool for analyzing code patterns in legacy codebases.",
-      image: "",
-      links: [
-        { title: "Source", icon: Github, href: "#" }
-      ]
+      title: "Full-Stack Web Development",
+      organization: "Dicoding",
+      year: "2023",
+      description:
+        "Learned the fundamentals of modern web development — HTML, CSS, JavaScript, and building responsive, accessible interfaces.",
+      href: "https://github.com/alwankapi"
+    },
+    {
+      title: "Flutter Fundamental",
+      organization: "Dicoding",
+      year: "2025",
+      description:
+        "Explored the Flutter framework and Dart fundamentals, applying widget composition and state management in real mobile apps.",
+      href: "https://github.com/alwankapi"
     }
   ]
 }

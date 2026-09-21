@@ -1,3 +1,4 @@
+import { MapPin } from "lucide-react";
 import BlurFade from "../magicui/blur-fade";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DATA } from "../../data/resume";
@@ -13,10 +14,18 @@ export default function HeroSection({ blurFadeDelay }) {
                 Hi, I'm {DATA.name}
               </h1>
             </BlurFade>
-            <BlurFade delay={blurFadeDelay * 2}>
+            <BlurFade delay={blurFadeDelay * 1.5}>
               <p className="max-w-[600px] md:text-xl text-muted-foreground">
                 {DATA.description}
               </p>
+            </BlurFade>
+            <BlurFade delay={blurFadeDelay * 2}>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <span className="inline-flex items-center gap-1.5 rounded-full border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
+                  <MapPin className="size-3.5" />
+                  {DATA.location}
+                </span>
+              </div>
             </BlurFade>
           </div>
           <BlurFade delay={blurFadeDelay * 2}>
@@ -32,3 +41,4 @@ export default function HeroSection({ blurFadeDelay }) {
     </section>
   );
 }
+

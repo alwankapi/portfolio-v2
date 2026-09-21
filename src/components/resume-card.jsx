@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -32,14 +31,17 @@ export default function ResumeCard({
     >
       <div className="flex">
         <div className="flex-none">
-          <Avatar className="border size-12 m-auto bg-muted-foreground shadow-sm">
-            <AvatarImage
+          {logoUrl ? (
+            <img
               src={logoUrl}
               alt={altText}
-              className="object-contain"
+              className="h-11 w-auto rounded-md object-contain sm:h-12"
             />
-            <AvatarFallback>{altText[0]}</AvatarFallback>
-          </Avatar>
+          ) : (
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-semibold text-muted-foreground sm:h-12 sm:w-12">
+              {altText?.[0]?.toUpperCase()}
+            </div>
+          )}
         </div>
         <div className="flex-grow ml-4 items-center flex-col group">
           <div className="flex items-center justify-between gap-x-2 text-base">
