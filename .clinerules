@@ -1,0 +1,26 @@
+# Antislop Rules for Cline
+
+<!-- antislop:start -->
+## antislop
+
+Version: 3.2.18
+Mode: during
+Skills:
+- antislop (.cline/skills/antislop/SKILL.md)
+- antislop-ui (.cline/skills/antislop-ui/SKILL.md)
+- antislop-copywriting (.cline/skills/antislop-copywriting/SKILL.md)
+- antislop-human (.cline/skills/antislop-human/SKILL.md)
+- antislop-layoutmobile (.cline/skills/antislop-layoutmobile/SKILL.md)
+- antislop-code (.cline/skills/antislop-code/SKILL.md)
+Direction: DESIGN.md
+<!-- antislop:end -->
+
+Whenever generating, modifying, or reviewing UI, copywriting, and code:
+1. Always follow the 38 mandatory antislop rules (R-01 to R-38) defined in `antislop.md` and `.cline/skills/antislop/SKILL.md`.
+2. Do not generate generic AI patterns:
+   - No meaningless gradient text on white backgrounds or generic purple/blue glow badges.
+   - No fake stats, marketing buzzwords ("Unlock the power of...", "Revolutionize..."), or filler copy.
+   - No decorative elements without clear purpose.
+   - Ensure color contrast ratios meet WCAG standards (verified with `antislop-human/contrast-check.py`).
+   - Clean, purposeful, human-crafted code comments only.
+3. Treat `DESIGN.md` as the source of truth for visual identity, tone, typography, and palette.

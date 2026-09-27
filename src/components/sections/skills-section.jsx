@@ -12,7 +12,10 @@ export default function SkillsSection({ blurFadeDelay }) {
         <div className="flex flex-wrap gap-1">
           {DATA.skills.map((skill, id) => (
             <BlurFade key={skill.name} delay={blurFadeDelay * 10 + id * 0.02}>
-              <Badge key={skill.name} className="flex items-center gap-1.5 px-2.5 py-1">
+              <Badge
+                key={skill.name}
+                className="flex items-center gap-1.5 border-border bg-white px-2.5 py-1 text-black hover:bg-white/80 dark:bg-black dark:text-white dark:hover:bg-black/80"
+              >
                 {skill.icon && <skill.icon className="size-3.5" style={{ color: skill.color }} />}
                 {skill.name}
               </Badge>

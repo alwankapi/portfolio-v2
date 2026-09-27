@@ -31,9 +31,9 @@ export const DATA = {
   role: "Web Developer · Program Analyst · UI/UX Designer",
   description:
     "Information Technology student who loves building web applications, designing clean interfaces, and solving real problems with code.",
-  /* Inline links are written as [label](url) and rendered by AboutSection. */
+  /* Inline links are written as [label](url) or [label|action|color](url) and rendered by AboutSection. */
   summary:
-    "I'm an Information Technology student based in Jakarta, passionate about [web development](https://github.com/alwankapi) and [UI/UX design](https://instagram.com/alwankafi_). I enjoy building practical [information systems](https://github.com/alwankapi) that solve real problems — from PHP frameworks to modern React frontends, and even mobile apps with Flutter. My goal is simple: keep learning, build real projects, and improve step by step.",
+    "I'm an Information Technology student based in Jakarta, active as a [Web Developer|underline|#FF9800](https://github.com/alwankapi), [Program Analyst|highlight|#87CEFA](https://github.com/alwankapi), and [UI/UX Designer|underline|#FF9800](https://instagram.com/alwankafi_). I enjoy building practical [information systems|highlight|#87CEFA](https://github.com/alwankapi) that solve real problems — from PHP frameworks to modern React frontends, and mobile apps with Flutter. My goal is simple: keep learning, build real projects, and improve step by step.",
   avatarUrl: fotoProfil,
   github: "alwankapi",
   skills: [
@@ -79,6 +79,22 @@ export const DATA = {
       logoUrl: "https://bsi.today/wp-content/uploads/2021/05/logo-bsi.png",
       start: "2023",
       end: "Present"
+    },
+    {
+      school: "PeTIK Jombang",
+      href: "https://share.google/FTzsepuNHKsJTMCoU",
+      degree: "Digital Marketing",
+      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGLHncEMwBOefy5tvq0dmO2uqtxzbXpFlljVPpme4DXGKvtWRhaZ6tmMA&s=10",
+      start: "2022",
+      end: "2023"
+    },
+    {
+      school: "Darul'Amal Boarding School",
+      href: "https://darulamal.id/",
+      degree: "Ilmu Pengetahuan Alam (IPA)",
+      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmGlGSlUED6FVjGYmVnwxTQI5CYQyB343n9EK3qgw_TQ&s=10",
+      start: "2016",
+      end: "2022"
     }
   ],
   projects: [

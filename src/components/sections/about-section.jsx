@@ -1,10 +1,12 @@
 import { ExternalLink } from "lucide-react";
 import BlurFade from "../magicui/blur-fade";
+import { Highlighter } from "../magicui/highlighter";
 import { DATA } from "../../data/resume";
 
 const LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
 
-// Turns a plain string containing [label](url) into text plus styled inline links.
+// Turns a plain string containing [label](url) or [label|action|color](url)
+// into text plus Magic UI Highlighter-wrapped interactive links.
 function renderWithLinks(text) {
   const out = [];
   let lastIndex = 0;
@@ -16,18 +18,34 @@ function renderWithLinks(text) {
     if (match.index > lastIndex) {
       out.push(text.slice(lastIndex, match.index));
     }
-    const [, label, href] = match;
+    const [, fullLabel, href] = match;
+    const parts = fullLabel.split("|");
+    const label = parts[0];
+    const action = parts[1] || (key % 2 === 0 ? "underline" : "highlight");
+    const color = parts[2] || (action === "underline" ? "#FF9800" : "#87CEFA");
+    const isHighlight = action === "highlight";
+
     out.push(
-      <a
+      <Highlighter
         key={key++}
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-        className="about-link"
+        action={action}
+        color={color}
+        className={
+          isHighlight
+            ? "text-zinc-950 dark:text-zinc-950 font-semibold px-1 rounded-sm mx-0.5"
+            : "mx-0.5"
+        }
       >
-        {label}
-        <ExternalLink className="about-link-icon ml-0.5" />
-      </a>
+        <a
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          className="about-link"
+        >
+          {label}
+          <ExternalLink className="about-link-icon ml-0.5" />
+        </a>
+      </Highlighter>
     );
     lastIndex = LINK_RE.lastIndex;
   }
@@ -41,9 +59,7 @@ export default function AboutSection({ blurFadeDelay }) {
   return (
     <section id="about">
       <BlurFade delay={blurFadeDelay * 3}>
-        <h2 className="text-xl font-bold">
-          About <span className="text-muted-foreground font-semibold">· {DATA.role}</span>
-        </h2>
+        <h2 className="text-xl font-bold">About</h2>
       </BlurFade>
       <BlurFade delay={blurFadeDelay * 4}>
         <p className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert mt-2 leading-relaxed">
@@ -53,4 +69,5 @@ export default function AboutSection({ blurFadeDelay }) {
     </section>
   );
 }
+
 
