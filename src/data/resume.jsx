@@ -5,10 +5,11 @@ import {
   FaReact,
   FaNodeJs,
   FaPhp,
-  FaDocker,
   FaGitAlt,
   FaDatabase,
-  FaFire
+  FaFire,
+  FaHtml5,
+  FaCss3Alt
 } from 'react-icons/fa'
 import {
   SiNextdotjs,
@@ -33,25 +34,25 @@ export const DATA = {
     "Information Technology student who loves building web applications, designing clean interfaces, and solving real problems with code.",
   /* Inline links are written as [label](url) or [label|action|color](url) and rendered by AboutSection. */
   summary:
-    "I'm an Information Technology student based in Jakarta, active as a [Web Developer|underline|#FF9800](https://github.com/alwankapi), [Program Analyst|highlight|#87CEFA](https://github.com/alwankapi), and [UI/UX Designer|underline|#FF9800](https://instagram.com/alwankafi_). I enjoy building practical [information systems|highlight|#87CEFA](https://github.com/alwankapi) that solve real problems — from PHP frameworks to modern React frontends, and mobile apps with Flutter. My goal is simple: keep learning, build real projects, and improve step by step.",
+    "I'm an Information Technology student based in Jakarta, active as a [Web Developer|highlight|#6F99B2](https://github.com/alwankapi), [Program Analyst|underline|#FF9800](https://github.com/alwankapi), and [UI/UX Designer|underline|#FF9800](https://instagram.com/alwankafi_). I enjoy building practical information systems that solve real problems from PHP frameworks to modern React frontends, and mobile apps with Flutter. My goal is simple: keep learning, build real projects, and improve step by step.",
   avatarUrl: fotoProfil,
   github: "alwankapi",
   skills: [
-    { name: "React.js", icon: FaReact, color: "#61DAFB" },
-    { name: "Next.js", icon: SiNextdotjs },
+    { name: "HTML", icon: FaHtml5, color: "#E34F26" },
+    { name: "CSS", icon: FaCss3Alt, color: "#1572B6" },
     { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
     { name: "PHP", icon: FaPhp, color: "#777BB4" },
     { name: "Laravel", icon: SiLaravel, color: "#FF2D20" },
     { name: "CodeIgniter 4", icon: SiCodeigniter, color: "#EF4223" },
+    { name: "React.js", icon: FaReact, color: "#61DAFB" },
+    { name: "Next.js", icon: SiNextdotjs },
     { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
     { name: "Node.js", icon: FaNodeJs, color: "#339933" },
     { name: "MySQL", icon: SiMysql, color: "#4479A1" },
     { name: "Firebase", icon: FaFire, color: "#FFCA28" },
     { name: "Flutter", icon: SiFlutter, color: "#02569B" },
     { name: "Dart", icon: SiDart, color: "#0175C2" },
-    { name: "REST API", icon: FaDatabase },
     { name: "Git", icon: FaGitAlt, color: "#F05032" },
-    { name: "Docker", icon: FaDocker, color: "#2496ED" },
     { name: "Figma", icon: SiFigma, color: "#F24E1E" }
   ],
   navbar: [
