@@ -1,5 +1,7 @@
+import { ExternalLink } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { cn } from "../lib/utils";
+import Safari from "./magicui/safari";
 
 export default function ProjectCard({
   title,
@@ -7,82 +9,137 @@ export default function ProjectCard({
   description,
   dates,
   technologies,
-  link,
   links,
   image,
   video,
+  url,
   className,
 }) {
   return (
     <div
       className={cn(
-        "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full bg-card rounded-lg",
+        "group relative flex flex-col overflow-hidden rounded-xl border border-border/70 bg-card/60 backdrop-blur-xs transition-all duration-300 hover:border-border hover:shadow-md hover:-translate-y-0.5 h-full",
         className
       )}
     >
-      <a href={href || "#"} className="block cursor-pointer">
-        {video && (
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="pointer-events-none mx-auto h-40 w-full object-cover object-top"
-          />
-        )}
-        {image && (
-          <img
-            src={image}
-            alt={title}
-            className="h-40 w-full overflow-hidden object-cover object-top"
-          />
-        )}
-        {!image && !video && (
-           <div className="h-40 w-full bg-muted flex items-center justify-center">
-             <span className="text-muted-foreground text-xs uppercase tracking-widest">{title}</span>
-           </div>
+      <a
+        href={href || "#"}
+        target={href ? "_blank" : undefined}
+        rel="noreferrer"
+        className="block cursor-pointer overflow-hidden"
+      >
+        {video ? (
+          <div className="relative h-40 sm:h-44 w-full overflow-hidden bg-muted/40 p-2 sm:p-2.5 pb-0 border-b border-border/50">
+            <Safari
+              videoSrc={video}
+              url={url || (href ? href.replace(/^https?:\/\//, "").replace(/\/$/, "") : "simkos.app")}
+              mode="simple"
+              className="w-full shadow-xs rounded-t-md transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+            />
+          </div>
+        ) : image ? (
+          <div className="relative h-40 sm:h-44 w-full overflow-hidden bg-muted/40 border-b border-border/50">
+            <img
+              src={image}
+              alt={title}
+              className="h-full w-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-105"
+            />
+          </div>
+        ) : (
+          <div className="relative h-40 sm:h-44 w-full overflow-hidden bg-muted/20 border-b border-border/50 flex flex-col items-center justify-center gap-1.5 p-4 text-center">
+            <div className="size-9 rounded-lg bg-muted/60 border border-border/40 flex items-center justify-center text-muted-foreground">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
+            </div>
+            <span className="text-muted-foreground text-xs font-medium tracking-tight line-clamp-1">{title}</span>
+          </div>
         )}
       </a>
-      <div className="flex flex-col px-4 py-4 flex-grow">
-        <div className="space-y-1">
-          <h3 className="font-semibold text-base">{title}</h3>
-          <time className="font-sans text-xs text-muted-foreground">{dates}</time>
-          <div className="hidden font-sans text-xs underline print:visible">
-            {link?.replace("https://", "").replace("www.", "").replace("/", "")}
+
+      <div className="flex flex-1 flex-col justify-between p-3.5 sm:p-4">
+        <div className="space-y-1.5">
+          <div className="flex items-start justify-between gap-2">
+            <a
+              href={href || "#"}
+              target={href ? "_blank" : undefined}
+              rel="noreferrer"
+              className="font-semibold text-sm sm:text-base leading-snug tracking-tight text-foreground group-hover:text-primary transition-colors inline-flex items-center gap-1 line-clamp-1"
+            >
+              <span>{title}</span>
+              {href && (
+                <ExternalLink className="size-3 opacity-0 -translate-y-px transition-opacity group-hover:opacity-70 shrink-0" />
+              )}
+            </a>
+            {dates && (
+              <time className="font-mono text-[10px] text-muted-foreground whitespace-nowrap shrink-0 pt-0.5">
+                {dates}
+              </time>
+            )}
           </div>
-          <p className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert mt-2">
+          <p className="font-sans text-xs text-muted-foreground leading-relaxed line-clamp-2 sm:line-clamp-3">
             {description}
           </p>
         </div>
-      </div>
-      <div className="mt-auto flex flex-col px-4 pb-4">
-        {technologies && technologies.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {technologies?.map((tag) => (
-              <Badge
-                className="px-1 py-0 text-[10px]"
-                variant="secondary"
-                key={tag}
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )}
-        {links && links.length > 0 && (
-          <div className="flex flex-row flex-wrap items-start gap-1 mt-4">
-            {links?.map((link, idx) => (
-              <a href={link?.href} key={idx} target="_blank">
-                <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
-                  {link.icon && <link.icon className="h-3 w-3" />}
-                  {link.type}
-                </Badge>
-              </a>
-            ))}
-          </div>
-        )}
+
+        <div className="mt-3 space-y-2.5">
+          {technologies && technologies.length > 0 && (
+            <div className="flex flex-wrap gap-1">
+              {technologies.map((tech, idx) => {
+                const isObj = typeof tech === "object" && tech !== null;
+                const name = isObj ? tech.name : tech;
+                const Icon = isObj ? tech.icon : null;
+                const color = isObj ? tech.color : undefined;
+
+                return (
+                  <Badge
+                    key={isObj ? tech.name || idx : tech}
+                    variant="secondary"
+                    className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-normal text-muted-foreground rounded transition-colors hover:text-foreground"
+                  >
+                    {Icon && (
+                      <Icon
+                        className="size-3 shrink-0"
+                        style={color ? { color } : undefined}
+                      />
+                    )}
+                    <span>{name}</span>
+                  </Badge>
+                );
+              })}
+            </div>
+          )}
+
+          {links && links.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 pt-0.5">
+              {links.map((item, idx) => (
+                <a
+                  key={idx}
+                  href={item?.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 rounded-md border border-border/70 bg-background/80 px-2 py-0.5 text-[11px] font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
+                  {item.icon && <item.icon className="size-3" />}
+                  <span>{item.type}</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 }
+

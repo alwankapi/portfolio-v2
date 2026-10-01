@@ -21,9 +21,13 @@ export default function ProjectsSection({ blurFadeDelay }) {
             </div>
           </div>
         </BlurFade>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {DATA.projects.map((project, id) => (
-            <BlurFade key={project.title} delay={blurFadeDelay * 12 + id * 0.05}>
+            <BlurFade
+              key={project.title}
+              delay={blurFadeDelay * 12 + id * 0.05}
+              className="h-full"
+            >
               <ProjectCard
                 href={project.href}
                 key={project.title}
@@ -32,6 +36,8 @@ export default function ProjectsSection({ blurFadeDelay }) {
                 dates={project.dates}
                 technologies={project.technologies}
                 image={project.image}
+                video={project.video}
+                url={project.url}
                 links={project.links}
               />
             </BlurFade>

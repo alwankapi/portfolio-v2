@@ -1,3 +1,5 @@
+import { useId } from "react"
+
 const SAFARI_WIDTH = 1203
 const SAFARI_HEIGHT = 753
 const SCREEN_X = 1
@@ -11,7 +13,7 @@ const TOP_PCT = (SCREEN_Y / SAFARI_HEIGHT) * 100
 const WIDTH_PCT = (SCREEN_WIDTH / SAFARI_WIDTH) * 100
 const HEIGHT_PCT = (SCREEN_HEIGHT / SAFARI_HEIGHT) * 100
 
-export default function Safari({
+export function Safari({
   imageSrc,
   videoSrc,
   url,
@@ -20,6 +22,11 @@ export default function Safari({
   style,
   ...props
 }) {
+  const uid = useId().replace(/:/g, "")
+  const maskId = `safariPunch-${uid}`
+  const clipId = `path0-${uid}`
+  const roundedBottomId = `roundedBottom-${uid}`
+
   const hasVideo = !!videoSrc
   const hasMedia = hasVideo || !!imageSrc
 
@@ -40,10 +47,11 @@ export default function Safari({
             top: `${TOP_PCT}%`,
             width: `${WIDTH_PCT}%`,
             height: `${HEIGHT_PCT}%`,
+            borderRadius: "0 0 11px 11px",
           }}
         >
           <video
-            className="block size-full object-cover"
+            className="block size-full object-cover object-top"
             src={videoSrc}
             autoPlay
             loop
@@ -81,19 +89,19 @@ export default function Safari({
         style={{ transform: "translateZ(0)" }}
       >
         <defs>
-          <mask id="safariPunch" maskUnits="userSpaceOnUse">
+          <mask id={maskId} maskUnits="userSpaceOnUse">
             <rect x="0" y="0" width={SAFARI_WIDTH} height={SAFARI_HEIGHT} fill="white" />
             <path d="M1 52H1201V741C1201 747.075 1196.08 752 1190 752H12C5.92486 752 1 747.075 1 741V52Z" fill="black" />
           </mask>
-          <clipPath id="path0">
+          <clipPath id={clipId}>
             <rect width={SAFARI_WIDTH} height={SAFARI_HEIGHT} fill="white" />
           </clipPath>
-          <clipPath id="roundedBottom">
+          <clipPath id={roundedBottomId}>
             <path d="M1 52H1201V741C1201 747.075 1196.08 752 1190 752H12C5.92486 752 1 747.075 1 741V52Z" fill="white" />
           </clipPath>
         </defs>
 
-        <g clipPath="url(#path0)" mask={hasMedia ? "url(#safariPunch)" : undefined}>
+        <g clipPath={`url(#${clipId})`} mask={hasMedia ? `url(#${maskId})` : undefined}>
           <path
             d="M0 52H1202V741C1202 747.627 1196.63 753 1190 753H12C5.37258 753 0 747.627 0 741V52Z"
             className="fill-[#EBEBED] dark:fill-[#1C1C1E]"
@@ -109,7 +117,7 @@ export default function Safari({
         <rect x="186" y="10" width="831" height="32" rx="8" className="fill-[#FFFFFF] dark:fill-[#3A3A3C]" />
 
                 {url && (
-          <text x="601" y="31" textAnchor="middle" className="fill-[#3C3C43] dark:fill-[#EBEBF5] text-[13px]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          <text x="601" y="32" textAnchor="middle" className="fill-[#3C3C43] dark:fill-[#EBEBF5] text-[18px] font-medium" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
             {url}
           </text>
         )}
@@ -147,3 +155,5 @@ export default function Safari({
     </div>
   )
 }
+
+export default Safari

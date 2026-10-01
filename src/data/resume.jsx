@@ -1,4 +1,5 @@
 import fotoProfil from '../assets/foto-profil.png'
+import simkosVideo from '../assets/simkos thubnail.mp4'
 
 import { GithubIcon as Github } from '../components/icons'
 import {
@@ -6,8 +7,6 @@ import {
   FaNodeJs,
   FaPhp,
   FaGitAlt,
-  FaDatabase,
-  FaFire,
   FaHtml5,
   FaCss3Alt
 } from 'react-icons/fa'
@@ -20,7 +19,8 @@ import {
   SiMysql,
   SiFlutter,
   SiDart,
-  SiFigma
+  SiFigma,
+  SiFirebase
 } from 'react-icons/si'
 
 export const DATA = {
@@ -49,7 +49,7 @@ export const DATA = {
     { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
     { name: "Node.js", icon: FaNodeJs, color: "#339933" },
     { name: "MySQL", icon: SiMysql, color: "#4479A1" },
-    { name: "Firebase", icon: FaFire, color: "#FFCA28" },
+    { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
     { name: "Flutter", icon: SiFlutter, color: "#02569B" },
     { name: "Dart", icon: SiDart, color: "#0175C2" },
     { name: "Git", icon: FaGitAlt, color: "#F05032" },
@@ -106,9 +106,16 @@ export const DATA = {
       active: true,
       description:
         "Full-stack boarding house management system built with CodeIgniter 4. Handles rooms, tenant data, payment records, and an admin dashboard using the Waterfall method.",
-      technologies: ["CodeIgniter 4", "PHP", "MySQL", "Tailwind CSS"],
+      technologies: [
+        { name: "CodeIgniter 4", icon: SiCodeigniter, color: "#EF4223" },
+        { name: "PHP", icon: FaPhp, color: "#777BB4" },
+        { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+        { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" }
+      ],
       links: [{ type: "Source", href: "https://github.com/alwankapi", icon: Github }],
-      image: ""
+      image: "",
+      video: simkosVideo,
+      url: "simkos.app"
     },
     {
       title: "Perpustakaan Web",
@@ -117,7 +124,12 @@ export const DATA = {
       active: true,
       description:
         "Library management web application built with CodeIgniter 4 — book cataloguing, borrowing records, and member management in a clean admin interface.",
-      technologies: ["CodeIgniter 4", "PHP", "MySQL", "Tailwind CSS"],
+      technologies: [
+        { name: "CodeIgniter 4", icon: SiCodeigniter, color: "#EF4223" },
+        { name: "PHP", icon: FaPhp, color: "#777BB4" },
+        { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+        { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" }
+      ],
       links: [{ type: "Source", href: "https://github.com/alwankapi/perpustakaan-web", icon: Github }],
       image: ""
     },
@@ -128,7 +140,11 @@ export const DATA = {
       active: true,
       description:
         "Flutter mobile app for reporting lost and found items, with login, Firebase Auth, Cloud Firestore, and admin verification before reports go live.",
-      technologies: ["Flutter", "Firebase Auth", "Cloud Firestore"],
+      technologies: [
+        { name: "Flutter", icon: SiFlutter, color: "#02569B" },
+        { name: "Firebase Auth", icon: SiFirebase, color: "#FFCA28" },
+        { name: "Cloud Firestore", icon: SiFirebase, color: "#FFA000" }
+      ],
       links: [{ type: "Source", href: "https://github.com/alwankapi", icon: Github }],
       image: ""
     },
@@ -139,7 +155,11 @@ export const DATA = {
       active: true,
       description:
         "Mobile application refined with a user-centered design approach — improved UI/UX, better user flows, and Firebase backend integration.",
-      technologies: ["Flutter", "Dart", "Firebase"],
+      technologies: [
+        { name: "Flutter", icon: SiFlutter, color: "#02569B" },
+        { name: "Dart", icon: SiDart, color: "#0175C2" },
+        { name: "Firebase", icon: SiFirebase, color: "#FFCA28" }
+      ],
       links: [{ type: "Source", href: "https://github.com/alwankapi", icon: Github }],
       image: ""
     }
