@@ -5,7 +5,7 @@ export const FlickeringGrid = ({
   squareSize = 4,
   gridGap = 6,
   flickerChance = 0.3,
-  color = "rgb(0, 0, 0)",
+  color,
   width,
   height,
   className,
@@ -16,6 +16,27 @@ export const FlickeringGrid = ({
   const containerRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+  const [isDark, setIsDark] = useState(false);
+
+  // Detect dark mode
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkDarkMode();
+    
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
+  // Use theme-aware color if not provided
+  const effectiveColor = color || (isDark ? "rgb(255, 255, 255)" : "rgb(0, 0, 0)");
 
   const memoizedColor = useMemo(() => {
     const toRGBA = (color) => {
@@ -31,8 +52,8 @@ export const FlickeringGrid = ({
       const [r, g, b] = Array.from(ctx.getImageData(0, 0, 1, 1).data);
       return `rgba(${r}, ${g}, ${b},`;
     };
-    return toRGBA(color);
-  }, [color]);
+    return toRGBA(effectiveColor);
+  }, [effectiveColor]);
 
   const setupCanvas = useCallback(
     (canvas, width, height) => {

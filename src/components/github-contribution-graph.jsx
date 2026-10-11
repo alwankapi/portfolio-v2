@@ -10,13 +10,13 @@ const MONTHS = [
 const DAY_MS = 86400000;
 const WEEKS = 53;
 
-// Tailwind classes per contribution level (light / dark), GitHub-style palette.
+// GitHub exact color scheme for contribution levels
 const LEVELS = [
-  "bg-neutral-200 dark:bg-[#161616]",
-  "bg-green-300 dark:bg-green-900",
-  "bg-green-400 dark:bg-green-700",
-  "bg-green-500 dark:bg-green-500",
-  "bg-green-600 dark:bg-green-300",
+  "bg-[#ebedf0] dark:bg-[#161b22]", // Level 0 - empty
+  "bg-[#9be9a8] dark:bg-[#0e4429]", // Level 1 - low
+  "bg-[#40c463] dark:bg-[#006d32]", // Level 2 - medium-low
+  "bg-[#30a14e] dark:bg-[#26a641]", // Level 3 - medium-high
+  "bg-[#216e39] dark:bg-[#39d353]", // Level 4 - high
 ];
 
 export default function GithubContributionGraph({ username }) {
@@ -135,26 +135,26 @@ function Calendar({ data }) {
         <div className="flex w-full gap-1">
           {weeks.map((week, c) => (
             <div key={c} className="flex flex-1 flex-col gap-1">
-              {week.column.map((cell, r) => (
-                <div
-                  key={r}
-                  title={
-                    cell.count > 0
-                      ? `${cell.count} contribution${cell.count > 1 ? "s" : ""} on ${cell.date}`
-                      : undefined
-                  }
-                  className={`aspect-square w-full rounded-[2px] cursor-pointer ${LEVELS[cell.level]} ${
-                    cell.level > 0 ? "contribution-cell" : ""
-                  }`}
-                  style={
-                    cell.level > 0
-                      ? // Stagger each green cell's breathing phase so the graph
-                        // never pulses all at once.
-                        { animationDelay: `${((c * 7 + r) % 12) * 180}ms` }
-                      : undefined
-                  }
-                />
-              ))}
+              {week.column.map((cell, r) => {
+                // Calculate staggered animation delay for pop-in effect
+                const cellIndex = c * 7 + r;
+                const animationDelay = `${cellIndex * 0.0065}s`;
+                
+                return (
+                  <div
+                    key={r}
+                    title={
+                      cell.count > 0
+                        ? `${cell.count} contribution${cell.count > 1 ? "s" : ""} on ${cell.date}`
+                        : `No contributions on ${cell.date}`
+                    }
+                    className={`aspect-square w-full rounded-[2.5px] ${LEVELS[cell.level]} ${
+                      cell.level > 0 ? "contribution-cell" : "contribution-empty"
+                    }`}
+                    style={{ animationDelay }}
+                  />
+                );
+              })}
             </div>
           ))}
         </div>

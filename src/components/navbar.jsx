@@ -59,7 +59,49 @@ export default function Navbar() {
     } catch {}
   }, [dark])
 
-  const toggleTheme = () => setDark((d) => !d)
+  const toggleTheme = (event) => {
+    const isDarkNow = dark
+    const newTheme = !isDarkNow
+    
+    // Get click position for circle animation
+    const x = event?.clientX ?? window.innerWidth / 2
+    const y = event?.clientY ?? window.innerHeight / 2
+    
+    // Calculate size needed to cover entire viewport from click point
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    )
+    
+    // Create circle overlay
+    const overlay = document.createElement('div')
+    overlay.classList.add('theme-transition-overlay')
+    overlay.classList.add(isDarkNow ? 'dark-to-light' : 'light-to-dark')
+    
+    // Position and size the circle
+    overlay.style.left = `${x}px`
+    overlay.style.top = `${y}px`
+    overlay.style.width = `${endRadius * 2}px`
+    overlay.style.height = `${endRadius * 2}px`
+    overlay.style.transform = `translate(-50%, -50%)`
+    
+    document.body.appendChild(overlay)
+    
+    // Start animation
+    requestAnimationFrame(() => {
+      overlay.classList.add('expanding')
+    })
+    
+    // Change theme halfway through animation
+    setTimeout(() => {
+      setDark(newTheme)
+    }, 300)
+    
+    // Remove overlay after animation
+    setTimeout(() => {
+      overlay.remove()
+    }, 600)
+  }
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-6 flex origin-bottom">

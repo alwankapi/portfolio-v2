@@ -98,6 +98,38 @@ h6 {
   background: transparent;
 }
 
+/* Circle expand morphing animation for theme transition */
+.theme-transition-overlay {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform-origin: center;
+}
+
+.theme-transition-overlay.light-to-dark {
+  background: hsl(240 10% 3.9%);
+}
+
+.theme-transition-overlay.dark-to-light {
+  background: hsl(0 0% 100%);
+}
+
+@keyframes expandCircle {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.theme-transition-overlay.expanding {
+  animation: expandCircle 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--muted-foreground) / 0.3);
   border-radius: 4px;
@@ -107,28 +139,52 @@ h6 {
   background: hsl(var(--muted-foreground) / 0.5);
 }
 
-/* GitHub contribution graph — subtle "breathing" pulse for active (green) cells.
-   Empty/level-0 cells are not animated; only cells with level > 0 get the class. */
-@keyframes contributionBreathing {
-  0%,
-  100% {
-    opacity: 0.78;
-    filter: brightness(0.9);
+/* GitHub contribution graph animations */
+@keyframes contributionPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
   }
-  50% {
+  60% {
     opacity: 1;
-    filter: brightness(1.15);
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes contributionFlash {
+  0% {
+    filter: brightness(2.4);
+  }
+  45% {
+    filter: brightness(2.4);
+  }
+  100% {
+    filter: brightness(1);
   }
 }
 
 .contribution-cell {
-  animation: contributionBreathing 4s ease-in-out infinite;
+  opacity: 0;
+  transform-origin: center;
+  animation: contributionPop 0.55s ease-out both, contributionFlash 0.7s ease-out both;
+}
+
+.contribution-empty {
+  opacity: 0;
+  transform-origin: center;
+  animation: contributionPop 0.55s ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .contribution-cell {
-    animation: none;
-    opacity: 1;
-    filter: none;
+  .contribution-cell,
+  .contribution-empty {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
   }
 }

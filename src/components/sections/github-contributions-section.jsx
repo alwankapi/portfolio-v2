@@ -5,7 +5,7 @@ import { DATA } from "../../data/resume";
 export default function GithubContributionsSection({ blurFadeDelay }) {
   return (
     <section id="github">
-      <div className="space-y-12 w-full py-12">
+      <div className="space-y-8 w-full py-8">
         <BlurFade delay={blurFadeDelay * 15}>
           <div className="max-w-[800px] mx-auto">
             <GithubContributionGraph username={DATA.github} />
