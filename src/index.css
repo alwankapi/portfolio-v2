@@ -188,3 +188,16 @@ h6 {
     filter: none !important;
   }
 }
+
+/* View Transitions API support for animated theme toggle */
+@supports (view-transition-name: none) {
+  html[data-magicui-theme-vt="active"]::view-transition-old(root),
+  html[data-magicui-theme-vt="active"]::view-transition-new(root) {
+    animation-duration: var(--magicui-theme-toggle-vt-duration, 500ms);
+    animation-timing-function: ease-in-out;
+  }
+
+  html[data-magicui-theme-vt="active"]::view-transition-new(root) {
+    clip-path: var(--magicui-theme-vt-clip-from);
+  }
+}

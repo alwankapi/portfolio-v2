@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { HomeIcon, MoonIcon, SunIcon } from "lucide-react"
+import React from "react"
+import { HomeIcon } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -7,6 +7,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip"
 import { Dock, DockIcon } from "./ui/dock"
+import { AnimatedThemeToggler } from "@/components/magicui/animated-theme-toggler"
 import { DATA } from "../data/resume"
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/alwan-kapi-muntaha-ba6619425"
@@ -38,70 +39,10 @@ const DOCK_ITEMS = [
   { id: "github", kind: "link", label: "GitHub", href: DATA.contact.social.GitHub?.url || DATA.url, icon: Icons.gitHub },
   { id: "linkedin", kind: "link", label: "LinkedIn", href: DATA.contact.social.LinkedIn?.url || LINKEDIN_URL, icon: Icons.linkedin },
   { id: "gmail", kind: "link", label: "Gmail", href: `mailto:${DATA.contact.email}`, icon: Icons.gmail },
-  { id: "theme", kind: "toggle", label: "Dark mode", icon: MoonIcon, activeIcon: SunIcon },
+  { id: "theme", kind: "toggle", label: "Theme" },
 ]
 
 export default function Navbar() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window === "undefined") return false
-    try {
-      const stored = localStorage.getItem("theme")
-      if (stored) return stored === "dark"
-    } catch {}
-    if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) return true
-    return true
-  })
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark)
-    try {
-      localStorage.setItem("theme", dark ? "dark" : "light")
-    } catch {}
-  }, [dark])
-
-  const toggleTheme = (event) => {
-    const isDarkNow = dark
-    const newTheme = !isDarkNow
-    
-    // Get click position for circle animation
-    const x = event?.clientX ?? window.innerWidth / 2
-    const y = event?.clientY ?? window.innerHeight / 2
-    
-    // Calculate size needed to cover entire viewport from click point
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    )
-    
-    // Create circle overlay
-    const overlay = document.createElement('div')
-    overlay.classList.add('theme-transition-overlay')
-    overlay.classList.add(isDarkNow ? 'dark-to-light' : 'light-to-dark')
-    
-    // Position and size the circle
-    overlay.style.left = `${x}px`
-    overlay.style.top = `${y}px`
-    overlay.style.width = `${endRadius * 2}px`
-    overlay.style.height = `${endRadius * 2}px`
-    overlay.style.transform = `translate(-50%, -50%)`
-    
-    document.body.appendChild(overlay)
-    
-    // Start animation
-    requestAnimationFrame(() => {
-      overlay.classList.add('expanding')
-    })
-    
-    // Change theme halfway through animation
-    setTimeout(() => {
-      setDark(newTheme)
-    }, 300)
-    
-    // Remove overlay after animation
-    setTimeout(() => {
-      overlay.remove()
-    }, 600)
-  }
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-6 flex origin-bottom">
@@ -115,19 +56,10 @@ export default function Navbar() {
         >
           {DOCK_ITEMS.map((item) => (
             <DockIcon key={item.id} className="bg-black/10 dark:bg-white/10">
-              <Tooltip>
-                {item.kind === "toggle" ? (
-                  <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      onClick={toggleTheme}
-                      aria-label="Toggle dark mode"
-                      className="flex size-full items-center justify-center text-foreground"
-                    >
-                      {dark ? <item.activeIcon className="size-full" /> : <item.icon className="size-full" />}
-                    </button>
-                  </TooltipTrigger>
-                ) : (
+              {item.kind === "toggle" ? (
+                <AnimatedThemeToggler className="size-full" variant="circle" duration={500} />
+              ) : (
+                <Tooltip>
                   <TooltipTrigger asChild>
                     <a
                       href={item.href}
@@ -139,11 +71,11 @@ export default function Navbar() {
                       <item.icon className="size-full" />
                     </a>
                   </TooltipTrigger>
-                )}
-                <TooltipContent>
-                  <p>{item.kind === "toggle" ? (dark ? "Light mode" : "Dark mode") : item.label}</p>
-                </TooltipContent>
-              </Tooltip>
+                  <TooltipContent>
+                    <p>{item.label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
             </DockIcon>
           ))}
         </Dock>
