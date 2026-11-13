@@ -129,7 +129,9 @@ export const AnimatedThemeToggler = ({
 }) => {
   const shape = variant ?? "circle"
   const isControlled = theme !== undefined
-  const [internalIsDark, setInternalIsDark] = useState(false)
+  const [internalIsDark, setInternalIsDark] = useState(
+    () => document.documentElement.classList.contains("dark")
+  )
   const isDark = isControlled ? theme === "dark" : internalIsDark
   const buttonRef = useRef(null)
   const isTransitioningRef = useRef(false)
@@ -288,11 +290,14 @@ export const AnimatedThemeToggler = ({
       type="button"
       ref={buttonRef}
       onClick={toggleTheme}
-      className={cn(className)}
+      className={cn(
+        "flex items-center justify-center text-foreground",
+        className
+      )}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       {...props}
     >
-      {isDark ? <Sun /> : <Moon />}
-      <span className="sr-only">Toggle theme</span>
+      {isDark ? <Sun className="size-full" /> : <Moon className="size-full" />}
     </button>
   )
 }

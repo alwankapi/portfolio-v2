@@ -98,37 +98,7 @@ h6 {
   background: transparent;
 }
 
-/* Circle expand morphing animation for theme transition */
-.theme-transition-overlay {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform-origin: center;
-}
 
-.theme-transition-overlay.light-to-dark {
-  background: hsl(240 10% 3.9%);
-}
-
-.theme-transition-overlay.dark-to-light {
-  background: hsl(0 0% 100%);
-}
-
-@keyframes expandCircle {
-  from {
-    transform: scale(0);
-    opacity: 1;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.theme-transition-overlay.expanding {
-  animation: expandCircle 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
 
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--muted-foreground) / 0.3);
@@ -189,15 +159,315 @@ h6 {
   }
 }
 
-/* View Transitions API support for animated theme toggle */
+/* View Transitions API — animated theme toggle (Magic UI) */
 @supports (view-transition-name: none) {
-  html[data-magicui-theme-vt="active"]::view-transition-old(root),
-  html[data-magicui-theme-vt="active"]::view-transition-new(root) {
+  html[data-magicui-theme-vt="active"]::view-transition-group(root) {
     animation-duration: var(--magicui-theme-toggle-vt-duration, 500ms);
-    animation-timing-function: ease-in-out;
+  }
+
+  html[data-magicui-theme-vt="active"]::view-transition-old(root) {
+    animation: none;
+    z-index: -1;
+    mix-blend-mode: normal;
   }
 
   html[data-magicui-theme-vt="active"]::view-transition-new(root) {
+    animation: none;
+    z-index: 1;
+    mix-blend-mode: normal;
     clip-path: var(--magicui-theme-vt-clip-from);
+  }
+}
+
+/* ==========================================================================
+   Editorial Micro-interactions (Inspired by creativeatishay.in)
+   ========================================================================== */
+
+.kw {
+  position: relative;
+  display: inline-block;
+  color: hsl(var(--foreground));
+  font-weight: 500;
+  cursor: default;
+  isolation: isolate;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.kw:hover {
+  z-index: 70;
+}
+
+.kw-dashed {
+  border-bottom: 1px dashed hsl(var(--muted-foreground) / 0.7);
+  transition: border-bottom-color 0.15s ease;
+}
+
+/* Figma: Canvas selection border with corner resize handles */
+.kw-figma {
+  border-bottom: 1px dashed hsl(var(--muted-foreground) / 0.7);
+}
+
+.kw-figma::before,
+.kw-figma::after {
+  content: "";
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+
+.kw-figma::before {
+  inset: -1px -4px;
+  border: 1.2px solid #0d99ff;
+}
+
+.kw-figma::after {
+  inset: -4px -7px;
+  background:
+    linear-gradient(to right, #0d99ff, #0d99ff) left top / 6px 6px,
+    linear-gradient(to right, #0d99ff, #0d99ff) right top / 6px 6px,
+    linear-gradient(to right, #0d99ff, #0d99ff) left bottom / 6px 6px,
+    linear-gradient(to right, #0d99ff, #0d99ff) right bottom / 6px 6px,
+    linear-gradient(to right, hsl(var(--background)), hsl(var(--background))) left 1px top 1px / 4px 4px,
+    linear-gradient(to right, hsl(var(--background)), hsl(var(--background))) right 1px top 1px / 4px 4px,
+    linear-gradient(to right, hsl(var(--background)), hsl(var(--background))) left 1px bottom 1px / 4px 4px,
+    linear-gradient(to right, hsl(var(--background)), hsl(var(--background))) right 1px bottom 1px / 4px 4px;
+  background-repeat: no-repeat;
+}
+
+.kw-figma:hover {
+  border-bottom-color: transparent;
+}
+
+.kw-figma:hover::before,
+.kw-figma:hover::after {
+  opacity: 1;
+}
+
+/* React: Animated pixel coder peeking from behind */
+.kw-coder {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: 30px;
+  bottom: calc(100% + 2px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.16s ease, transform 0.22s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.kw-coder svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.kw-react:hover .kw-coder {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kw-coder-head {
+  animation: kwCoderBob 1.4s steps(1) infinite;
+  animation-name: none;
+}
+
+.kw-coder-hand {
+  animation: kwCoderTap 0.24s steps(1) infinite;
+  animation-name: none;
+}
+
+.kw-coder-hand-r {
+  animation-delay: 0.12s;
+}
+
+.kw-react:hover .kw-coder-head {
+  animation-name: kwCoderBob;
+}
+
+.kw-react:hover .kw-coder-hand {
+  animation-name: kwCoderTap;
+}
+
+@keyframes kwCoderBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1px); }
+}
+
+@keyframes kwCoderTap {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1px); }
+}
+
+/* Flowing wave underline */
+.kw-waveclip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 6px;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.kw-wave {
+  display: block;
+  width: 200%;
+  height: 100%;
+}
+
+.kw-wave path {
+  fill: none;
+  stroke: #06b6d4;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.kw-wavy:hover {
+  border-bottom-color: transparent;
+}
+
+.kw-wavy:hover .kw-waveclip {
+  opacity: 1;
+}
+
+.kw-wavy:hover .kw-wave {
+  animation: kwFlow 0.8s linear infinite;
+}
+
+@keyframes kwFlow {
+  to { transform: translateX(-50%); }
+}
+
+/* Popup card for music and rich previews */
+.kw-pop {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 9px);
+  z-index: 60;
+  display: flex;
+  white-space: nowrap;
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(6px) scale(0.96);
+  transform-origin: bottom center;
+  transition: opacity 0.16s ease, transform 0.22s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+/* Invisible bridge so mouse can move smoothly into popup */
+.kw-pop::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.kw:hover .kw-pop,
+.kw:focus-within .kw-pop {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.kw-pop--music {
+  padding: 8px 12px 8px 8px;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.kw-vinyl {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #333 0%, #111 60%, #000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: kwSpin 4s linear infinite;
+  animation-play-state: paused;
+}
+
+.kw-music:hover .kw-vinyl,
+.kw-vinyl.is-playing {
+  animation-play-state: running !important;
+}
+
+@keyframes kwSpin {
+  100% { transform: rotate(360deg); }
+}
+
+.kw-vinyl-center {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f97316;
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kw-eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+  margin-left: 6px;
+}
+
+.kw-eq span {
+  width: 2px;
+  height: 100%;
+  border-radius: 1px;
+  background: #f97316;
+  transform: scaleY(0.3);
+  transform-origin: bottom;
+  animation: kwEq 0.9s ease-in-out infinite;
+  animation-name: none;
+}
+
+.kw-eq span:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.kw-eq span:nth-child(3) {
+  animation-delay: -0.6s;
+}
+
+.kw-music:hover .kw-eq span,
+.kw-eq.is-playing span {
+  animation-name: kwEq !important;
+}
+
+@keyframes kwEq {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+@media (hover: none) {
+  .kw-figma::before,
+  .kw-figma::after,
+  .kw-pop,
+  .kw-coder,
+  .kw-waveclip {
+    display: none !important;
   }
 }

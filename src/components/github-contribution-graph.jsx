@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-const API_URL = (user) => `https://github-contributions-api.jogruber.de/v4/${user}`;
+const API_URL = (user) => `https://github-contributions-api.jogruber.de/v4/${user}?y=last`;
 
 const MONTHS = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -68,7 +68,7 @@ export default function GithubContributionGraph({ username }) {
           <Calendar data={data} />
 
           <div className="mt-3 flex justify-between items-center text-xs font-figtree text-neutral-600">
-            <span>{lastYearTotal(data).toLocaleString("en-US")} contributions in the last year</span>
+            <span>{(data.total?.lastYear ?? lastYearTotal(data)).toLocaleString("en-US")} contributions in the last year</span>
             <div className="flex items-center gap-2">
               <span>Less</span>
               <div className="flex gap-1">
@@ -114,11 +114,70 @@ function GraphSkeleton() {
   );
 }
 
+const MONTH_NAMES = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+function formatDate(dateStr) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const date = new Date(y, m - 1, d);
+  const day = date.getDate();
+  const suffix =
+    day >= 11 && day <= 13
+      ? "th"
+      : ["th", "st", "nd", "rd"][day % 10] || "th";
+  return `${MONTH_NAMES[date.getMonth()]} ${day}${suffix}, ${y}`;
+}
+
 function Calendar({ data }) {
   const { weeks, monthTicks } = useMemo(() => buildGraph(data.contributions || []), [data]);
+  const [tip, setTip] = useState(null);
+  const containerRef = useRef(null);
+  const tipRef = useRef(null);
+
+  const showTip = useCallback((e, cell) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const cellRect = e.currentTarget.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const x = cellRect.left + cellRect.width / 2 - containerRect.left;
+    const y = cellRect.top - containerRect.top;
+    setTip({ x, y, cell });
+  }, []);
+
+  const hideTip = useCallback(() => setTip(null), []);
+
+  const tipStyle = useMemo(() => {
+    if (!tip || !tipRef.current) return { opacity: 0, pointerEvents: "none" };
+    const tipW = tipRef.current.offsetWidth;
+    const container = containerRef.current;
+    const containerW = container ? container.offsetWidth : 0;
+    let left = tip.x - tipW / 2;
+    if (left < 0) left = 0;
+    if (left + tipW > containerW) left = containerW - tipW;
+    return {
+      position: "absolute",
+      top: tip.y - 8,
+      left,
+      transform: "translateY(-100%)",
+      zIndex: 50,
+    };
+  }, [tip]);
+
+  const arrowLeft = useMemo(() => {
+    if (!tip || !tipRef.current) return 0;
+    const tipW = tipRef.current.offsetWidth;
+    const container = containerRef.current;
+    const containerW = container ? container.offsetWidth : 0;
+    let boxLeft = tip.x - tipW / 2;
+    if (boxLeft < 0) boxLeft = 0;
+    if (boxLeft + tipW > containerW) boxLeft = containerW - tipW;
+    return tip.x - boxLeft;
+  }, [tip]);
 
   return (
-    <>
+    <div ref={containerRef} className="relative">
       <div className="relative mb-2 h-4 w-full text-xs font-figtree text-neutral-600">
         {monthTicks.map((tick) => (
           <span
@@ -136,18 +195,14 @@ function Calendar({ data }) {
           {weeks.map((week, c) => (
             <div key={c} className="flex flex-1 flex-col gap-1">
               {week.column.map((cell, r) => {
-                // Calculate staggered animation delay for pop-in effect
                 const cellIndex = c * 7 + r;
                 const animationDelay = `${cellIndex * 0.0065}s`;
-                
+
                 return (
                   <div
                     key={r}
-                    title={
-                      cell.count > 0
-                        ? `${cell.count} contribution${cell.count > 1 ? "s" : ""} on ${cell.date}`
-                        : `No contributions on ${cell.date}`
-                    }
+                    onMouseEnter={(e) => showTip(e, cell)}
+                    onMouseLeave={hideTip}
                     className={`aspect-square w-full rounded-[2.5px] ${LEVELS[cell.level]} ${
                       cell.level > 0 ? "contribution-cell" : "contribution-empty"
                     }`}
@@ -159,7 +214,33 @@ function Calendar({ data }) {
           ))}
         </div>
       </div>
-    </>
+
+      {/* Tooltip */}
+      <div
+        ref={tipRef}
+        role="tooltip"
+        className={`pointer-events-none whitespace-nowrap rounded-md bg-[#1b1f23] px-3 py-1.5 text-xs leading-tight text-white shadow-lg transition-opacity duration-100 ${
+          tip ? "opacity-100" : "opacity-0"
+        }`}
+        style={tip ? tipStyle : { position: "absolute", top: 0, left: 0, opacity: 0 }}
+      >
+        {tip && (
+          <>
+            <span className="font-semibold">
+              {tip.cell.count > 0
+                ? `${tip.cell.count} contribution${tip.cell.count > 1 ? "s" : ""}`
+                : "No contributions"}
+            </span>
+            <span className="text-neutral-400"> on {formatDate(tip.cell.date)}</span>
+          </>
+        )}
+        {/* Arrow */}
+        <div
+          className="absolute -bottom-1 size-2 rotate-45 bg-[#1b1f23]"
+          style={{ left: `${arrowLeft}px`, transform: "translateX(-50%) rotate(45deg)" }}
+        />
+      </div>
+    </div>
   );
 }
 

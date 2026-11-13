@@ -29,7 +29,7 @@ export const DATA = {
   initials: "AW",
   url: "https://github.com/alwankapi",
   location: "Jakarta, Indonesia",
-  role: "Web Developer · Program Analyst · UI/UX Designer",
+  role: "Web Developer",
   description:
     "Information Technology student who loves building web applications, designing clean interfaces, and solving real problems with code.",
   /* Inline links are written as [label](url) or [label|action|color](url) and rendered by AboutSection. */
@@ -37,6 +37,12 @@ export const DATA = {
     "I'm an Information Technology student based in Jakarta, active as a [Web Developer|highlight|#6F99B2](https://github.com/alwankapi), [Program Analyst|underline|#FF9800](https://github.com/alwankapi), and [UI/UX Designer|underline|#FF9800](https://instagram.com/alwankafi_). I enjoy building practical information systems that solve real problems from PHP frameworks to modern React frontends, and mobile apps with Flutter. My goal is simple: keep learning, build real projects, and improve step by step.",
   avatarUrl: fotoProfil,
   github: "alwankapi",
+  music: {
+    title: "DJ Di Cari Onty Onty",
+    artist: "BORLEN RMX TEAM",
+    src: "/music.mp3",
+    youtubeUrl: "https://youtu.be/uJNYDgSpRWU",
+  },
   skills: [
     { name: "HTML", icon: FaHtml5, color: "#E34F26" },
     { name: "CSS", icon: FaCss3Alt, color: "#1572B6" },
