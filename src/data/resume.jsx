@@ -170,31 +170,33 @@ export const DATA = {
       image: ""
     }
   ],
-  /* TODO: Replace the entries below with your real certificates. */
   certifications: [
     {
-      title: "IDCamp — Website Development",
-      organization: "Indosat Ooredoo Hutchison × Dicoding",
-      year: "2024",
+      title: "Introduction to Cybersecurity",
+      organization: "Cisco Networking Academy",
+      year: "2026",
       description:
-        "Completed the front-end and back-end tracks, building real web projects and finishing the final assignment on modern web tooling.",
-      href: "https://github.com/alwankapi"
+        "Completed the Introduction to Cybersecurity course on October 26, 2026.",
+      image: "/certificates/introduction-to-cybersecurity.jpg",
+      href: "/certificates/introduction-to-cybersecurity.pdf"
     },
     {
-      title: "Full-Stack Web Development",
-      organization: "Dicoding",
-      year: "2023",
-      description:
-        "Learned the fundamentals of modern web development — HTML, CSS, JavaScript, and building responsive, accessible interfaces.",
-      href: "https://github.com/alwankapi"
-    },
-    {
-      title: "Flutter Fundamental",
-      organization: "Dicoding",
+      title: "CCNA: Introduction to Networks",
+      organization: "Cisco Networking Academy · Universitas Bina Sarana Informatika",
       year: "2025",
       description:
-        "Explored the Flutter framework and Dart fundamentals, applying widget composition and state management in real mobile apps.",
-      href: "https://github.com/alwankapi"
+        "Completed the CCNA: Introduction to Networks course on January 17, 2025.",
+      image: "/certificates/ccna-introduction-to-networks.jpg",
+      href: "/certificates/ccna-introduction-to-networks.pdf"
+    },
+    {
+      title: "Partner: PCAP - Programming Essentials in Python",
+      organization: "Cisco Networking Academy",
+      year: "2024",
+      description:
+        "Completed the Partner: PCAP - Programming Essentials in Python course on July 19, 2024.",
+      image: "/certificates/pcap-programming-essentials-in-python.jpg",
+      href: "/certificates/pcap-programming-essentials-in-python.pdf"
     }
   ]
 }

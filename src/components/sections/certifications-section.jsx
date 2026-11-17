@@ -16,8 +16,8 @@ export default function CertificationsSection({ blurFadeDelay }) {
                 Always learning
               </h2>
               <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed max-w-xl mx-auto">
-                A few of the certifications I've picked up while exploring web and
-                mobile development.
+                Certificates from courses I've completed in networking, Python
+                programming, and cybersecurity.
               </p>
             </div>
           </div>
