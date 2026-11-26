@@ -1,4 +1,4 @@
-import fotoProfil from '../assets/foto-profil.png'
+import fotoProfil from '../assets/foto-profil-hover.png'
 import simkosVideo from '../assets/simkos thubnail.mp4'
 
 import { GithubIcon as Github } from '../components/icons'

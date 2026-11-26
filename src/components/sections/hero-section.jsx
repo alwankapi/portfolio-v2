@@ -1,5 +1,5 @@
 import { MapPin } from "lucide-react";
-import hoverPhoto from "../../assets/foto-profil-hover.webp";
+import hoverPhoto from "../../assets/foto-profil-hover.png";
 import BlurFade from "../magicui/blur-fade";
 import { DiaTextReveal } from "../ui/dia-text-reveal";
 import { DATA } from "../../data/resume";
