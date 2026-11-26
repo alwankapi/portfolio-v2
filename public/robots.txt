@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://alwankapimuntaha.me/sitemap.xml
