@@ -24,7 +24,7 @@ import {
 } from 'react-icons/si'
 
 export const DATA = {
-  name: "Awank",
+  name: "Alwan Kapi Muntaha",
   fullName: "Alwan Kapi Muntaha",
   initials: "AW",
   url: "https://github.com/alwankapi",
