@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
-  <title id="title">Awank logo</title>
-  <desc id="desc">Monogram AW representing Alwan Kapi Muntaha</desc>
-  <rect width="64" height="64" rx="16" fill="#111113"/>
-  <path d="M12 16h9l5.5 20L32 16h8l5.5 20L51 16h9L51 48h-9l-6-20-6 20h-9L12 16Z" fill="#fff"/>
-  <path d="M17 48h30" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
-</svg>
